@@ -1,13 +1,12 @@
-import GameInfo from "./components/game"
+import GameInfo from './components/GameInfo';
 
 function App() {
-
   return (
-    <>
-      <h1>Leader Games Deals</h1>
+    <div>
+      <h1> Leader Game Deals</h1>
       <GameInfo />
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
