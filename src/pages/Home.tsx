@@ -9,9 +9,11 @@ import type { GameDeal } from '../types/game';
 export const Home: React.FC = () => {
   const [filters, setFilters] = useState({
     storeID: '',
-    lowerPrice: 0,
-    upperPrice: 100,
-    minDiscount: 0,
+    lowerPrice: undefined,
+    upperPrice: undefined,
+    minDiscount: undefined,
+    sortBy: 'savings',
+    title: '',
   });
 
   const { games, loading } = useGames(filters);

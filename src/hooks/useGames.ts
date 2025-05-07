@@ -13,21 +13,28 @@ export function useGames(filters: Filters) {
 
       const params: any = {
         storeID: filters.storeID || undefined,
-        upperPrice: filters.upperPrice,
-        lowerPrice: filters.lowerPrice,
-        pageSize: 60,
-        sortBy: 'Savings',
+        upperPrice: filters.upperPrice >= 0 ? filters.upperPrice : undefined,
+        lowerPrice: filters.lowerPrice >= 0 ? filters.lowerPrice : undefined,
+        sortBy: filters.sortBy?.toLowerCase() || 'savings',
+        title: filters.title || undefined,
         onSale: 1,
+        pageSize: 60,
       };
 
-      const { data } = await API.get('/deals', { params });
+      try {
+        const { data } = await API.get('/deals', { params });
 
-      const filtered = data.filter((deal: GameDeal) => {
-        return Number(deal.savings) >= (filters.minDiscount || 0);
-      });
+        const filtered = data.filter((deal: GameDeal) => {
+          return Number(deal.savings) >= (filters.minDiscount || 0);
+        });
 
-      setGames(filtered);
-      setLoading(false);
+        setGames(filtered);
+      } catch (error) {
+        console.error('Erro ao buscar jogos:', error);
+        setGames([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchGames();
