@@ -8,61 +8,62 @@ interface DataTableProps {
 }
 
 export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
-  const { stores, loading } = useStores();  // Usando o hook que busca os ícones das lojas
+  const { stores, loading } = useStores();
 
-  if (loading) {
-    return <p>Carregando lojas...</p>;  // Enquanto carrega, exibe "Carregando lojas..."
-  }
+  if (loading) return <p className="text-center text-gray-500">Carregando lojas...</p>;
 
-  if (!stores || Object.keys(stores).length === 0) {
-    return <p>Erro ao carregar as lojas.</p>;  // Exibe erro se stores estiver vazio ou indefinido
-  }
+  if (!stores || stores.length === 0) return <p className="text-center text-red-500">Erro ao carregar as lojas.</p>;
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Jogo</th>
-          <th>Preço</th>
-          <th>Valor original</th>
-          <th>Desconto</th>
-          <th>Loja</th>
-          <th>Nota</th>
-        </tr>
-      </thead>
-      <tbody>
-        {games.map((game) => {
-          // Encontrar a loja correspondente usando o storeID do jogo
-          const store = stores.find(store => store.storeID === game.storeID);
+    <div className="overflow-x-auto p-4">
+      <table className="min-w-full bg-white border border-gray-200 shadow-sm">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="px-4 py-2 border">Jogo</th>
+            <th className="px-4 py-2 border">Preço</th>
+            <th className="px-4 py-2 border">Valor original</th>
+            <th className="px-4 py-2 border">Desconto</th>
+            <th className="px-4 py-2 border">Loja</th>
+            <th className="px-4 py-2 border">Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          {games.map((game) => {
+            const store = stores.find(store => store.storeID === game.storeID);
 
-          return (
-            <tr key={game.dealID} onClick={() => onSelect(game)}>
-              <td>
-                <img src={game.thumb} alt={game.title} style={{ width: '50px', height: 'auto' }} />
-                {game.title}
-              </td>
-              <td>${game.salePrice}</td>
-              <td>${game.normalPrice}</td>
-              <td>{game.savings}%</td>
-              <td>
-                {store ? (
-                  <div>
-                    <img
-                      src={`https://www.cheapshark.com${store.images.logo}`}  // Exibindo o ícone da loja
-                      alt={`Ícone da loja ${store.storeName}`}
-                      style={{ width: '30px', height: '30px', verticalAlign: 'middle', marginRight: '5px' }}
-                    />
-                    {store.storeName}
-                  </div>
-                ) : (
-                  <span>Loja não encontrada</span>
-                )}
-              </td>
-              <td>{game.dealRating}%</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+            return (
+              <tr
+                key={game.dealID}
+                className="hover:bg-gray-50 cursor-pointer"
+                onClick={() => onSelect(game)}
+              >
+                <td className="px-4 py-2 border flex items-center gap-2">
+                  <img src={game.thumb} alt={game.title} className="w-12 h-auto rounded" />
+                  <span className="text-sm font-medium">{game.title}</span>
+                </td>
+                <td className="px-4 py-2 border text-green-600 font-semibold">R$ {Number(game.salePrice).toFixed(2)}</td>
+                <td className="px-4 py-2 border text-gray-500">R$ {Number(game.normalPrice).toFixed(2)}</td>
+                <td className="px-4 py-2 border text-red-500">{Number(game.savings).toFixed(0)}%</td>
+                <td className="px-4 py-2 border">
+                  {store ? (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={`https://www.cheapshark.com${store.images.logo}`}
+                        alt={`Ícone da loja ${store.storeName}`}
+                        className="w-6 h-6"
+                      />
+                      <span className="text-sm">{store.storeName}</span>
+                    </div>
+                  ) : (
+                    <span className="text-sm text-gray-400">Loja não encontrada</span>
+                  )}
+                </td>
+                <td className="px-4 py-2 border text-center">{game.dealRating}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
