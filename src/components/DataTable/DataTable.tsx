@@ -22,11 +22,12 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
     <table>
       <thead>
         <tr>
-          <th>Imagem</th>
           <th>Jogo</th>
           <th>Preço</th>
+          <th>Valor original</th>
           <th>Desconto</th>
           <th>Loja</th>
+          <th>Nota</th>
         </tr>
       </thead>
       <tbody>
@@ -38,9 +39,10 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
             <tr key={game.dealID} onClick={() => onSelect(game)}>
               <td>
                 <img src={game.thumb} alt={game.title} style={{ width: '50px', height: 'auto' }} />
+                {game.title}
               </td>
-              <td>{game.title}</td>
-              <td>{game.salePrice}</td>
+              <td>${game.salePrice}</td>
+              <td>${game.normalPrice}</td>
               <td>{game.savings}%</td>
               <td>
                 {store ? (
@@ -50,11 +52,13 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
                       alt={`Ícone da loja ${store.storeName}`}
                       style={{ width: '30px', height: '30px', verticalAlign: 'middle', marginRight: '5px' }}
                     />
+                    {store.storeName}
                   </div>
                 ) : (
                   <span>Loja não encontrada</span>
                 )}
               </td>
+              <td>{game.dealRating}%</td>
             </tr>
           );
         })}

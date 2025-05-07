@@ -19,6 +19,7 @@ export const Home: React.FC = () => {
 
   return (
     <div>
+      <h1>Leader Games Deals</h1>
       <FilterControls filters={filters} onChange={setFilters} />
       {loading ? <p>Carregando...</p> : <DataTable games={games} onSelect={setSelectedGame} />}
       <GameModal game={selectedGame} onClose={() => setSelectedGame(null)} />
