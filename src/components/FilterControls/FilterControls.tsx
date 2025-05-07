@@ -1,16 +1,29 @@
-// components/FilterControls/FilterControls.tsx
-export const FilterControls = ({ filters, onChange }: any) => {
+import React from 'react';
+import { useStores } from '../../hooks/useStores';
+
+interface FilterControlsProps {
+  filters: any;
+  onChange: (filters: any) => void;
+}
+
+export const FilterControls: React.FC<FilterControlsProps> = ({ filters, onChange }) => {
+  const { stores, loading } = useStores();
+
+  if (loading) return <p>Carregando lojas...</p>;
+
   return (
     <div>
-      {/* Store ID */}
+      {/* Filtro por loja */}
       <select
         value={filters.storeID}
         onChange={e => onChange({ ...filters, storeID: e.target.value })}
       >
         <option value="">Todas as lojas</option>
-        <option value="1">Steam</option>
-        <option value="2">GamersGate</option>
-        {/* Adicione mais opções conforme necessário */}
+        {stores.map((store) => (
+          <option key={store.storeID} value={store.storeID}>
+            {store.storeName}
+          </option>
+        ))}
       </select>
 
       {/* Faixa de preço */}

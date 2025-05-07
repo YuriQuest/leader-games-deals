@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import API from '../services/api';
 import type { GameDeal } from '../types/game';
-import type { Filters } from '../types/filters';
+import type { Filters } from '../types/Filters';
 
 export function useGames(filters: Filters) {
   const [games, setGames] = useState<GameDeal[]>([]);
