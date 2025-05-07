@@ -1,6 +1,6 @@
 // components/GameModal/GameModal.tsx
 import React from 'react';
-import { GameDeal } from '../../types/game';
+import type { GameDeal } from '../../types/game';
 
 interface Props {
   game: GameDeal | null;
