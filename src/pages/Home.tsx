@@ -1,4 +1,4 @@
-// pages/Home.tsx
+// src/pages/Home.tsx
 import React, { useState } from 'react';
 import { useGames } from '../hooks/useGames';
 import { DataTable } from '../components/DataTable/DataTable';
@@ -7,7 +7,13 @@ import { GameModal } from '../components/GameModal/GameModal';
 import type { GameDeal } from '../types/game';
 
 export const Home: React.FC = () => {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    storeID: '',
+    lowerPrice: 0,
+    upperPrice: 100,
+    minDiscount: 0,
+  });
+
   const { games, loading } = useGames(filters);
   const [selectedGame, setSelectedGame] = useState<GameDeal | null>(null);
 
