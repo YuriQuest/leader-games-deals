@@ -11,10 +11,10 @@ export function useGames(filters: Filters) {
     const fetchGames = async () => {
       setLoading(true);
 
-      const params: any = {
+      const params:  Partial<Record<string, string | number>> = {
         storeID: filters.storeID || undefined,
-        upperPrice: filters.upperPrice >= 0 ? filters.upperPrice : undefined,
-        lowerPrice: filters.lowerPrice >= 0 ? filters.lowerPrice : undefined,
+        upperPrice: filters.upperPrice != null && filters.upperPrice >= 0 ? filters.upperPrice : undefined,
+        lowerPrice: filters.lowerPrice != null && filters.lowerPrice >= 0 ? filters.lowerPrice : undefined,
         sortBy: filters.sortBy?.toLowerCase() || 'savings',
         title: filters.title || undefined,
         onSale: 1,

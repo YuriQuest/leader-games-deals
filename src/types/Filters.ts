@@ -1,7 +1,8 @@
 export interface Filters {
-    storeID?: string;
-    lowerPrice?: number;
-    upperPrice?: number;
-    minDiscount?: number;
-  }
-  
+  storeID?: string;
+  upperPrice?: number;
+  lowerPrice?: number;
+  sortBy?: string;
+  title?: string;
+  minDiscount?: number;
+}

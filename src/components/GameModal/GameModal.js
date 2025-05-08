@@ -1,0 +1,11 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useStores } from '../../hooks/useStores';
+export const GameModal = ({ game, onClose }) => {
+    const { stores, loading } = useStores();
+    if (loading)
+        return _jsx("p", { className: "text-center text-gray-500", children: "Carregando lojas..." });
+    if (!stores || stores.length === 0)
+        return _jsx("p", { className: "text-center text-red-500", children: "Erro ao carregar as lojas." });
+    const store = stores.find(store => store.storeID === game.storeID);
+    return (_jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50", children: _jsxs("div", { className: "relative w-full max-w-md p-6 rounded-lg shadow-lg bg-slate-300", children: [_jsx("button", { onClick: onClose, className: "absolute text-gray-600 top-2 right-2 hover:text-black", children: "\u00D7" }), _jsx("img", { src: game.thumb, alt: game.title, className: "w-full h-auto mb-4 rounded" }), _jsx("h2", { className: "mb-2 text-xl font-semibold", children: game.title }), _jsxs("p", { className: 'flex justify-between', children: [_jsxs("p", { className: "mb-2", children: [_jsx("strong", { children: "Pre\u00E7o:" }), " R$ ", Number(game.salePrice).toFixed(2)] }), _jsxs("p", { className: "mb-2", children: [_jsx("strong", { children: "Pre\u00E7o original:" }), " R$ ", Number(game.normalPrice).toFixed(2)] })] }), _jsxs("p", { className: 'flex justify-between', children: [_jsxs("p", { className: "mb-2", children: [_jsx("strong", { children: "Desconto:" }), " ", Number(game.savings).toFixed(0), "%"] }), _jsxs("p", { className: "mb-2", children: [_jsx("strong", { children: "Menor pre\u00E7o:" }), " R$ ", Number(game.savings).toFixed(0)] })] }), _jsxs("p", { className: "flex mb-2", children: [_jsx("strong", { children: "Loja:" }), _jsx("img", { src: `https://www.cheapshark.com${store.images.logo}`, alt: `Ícone da loja ${store.storeName}`, className: "w-6 h-6" }), store.storeName] }), _jsx("a", { href: `https://www.cheapshark.com/redirect?dealID=${game.dealID}`, target: "_blank", rel: "noopener noreferrer", className: "inline-block px-4 py-2 mt-4 text-white bg-green-500 rounded hover:bg-green-600", children: "Ver Oferta" })] }) }));
+};

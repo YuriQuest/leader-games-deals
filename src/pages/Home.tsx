@@ -4,6 +4,7 @@ import { DataTable } from '../components/DataTable/DataTable';
 import { FilterControls } from '../components/FilterControls/FilterControls';
 import { useGames } from '../hooks/useGames';
 import { GameModal } from '../components/GameModal/GameModal';
+import type { GameDeal } from '../types/game';
 
 export const Home = () => {
   const [filters, setFilters] = useState({
@@ -15,9 +16,13 @@ export const Home = () => {
     title: '',
   });
 
-  const [selectedGame, setSelectedGame] = useState(null);
+  const [selectedGame, setSelectedGame] = useState<GameDeal | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('table');
   const { games, loading } = useGames(filters);
+
+  const handleSelectGame = (game: GameDeal) => {
+    setSelectedGame(game);
+  };
 
   return (
     <div className='flex flex-col px-6 py-8 mx-auto'>
@@ -37,12 +42,11 @@ export const Home = () => {
       {loading ? (
         <p>Carregando jogos...</p>
       ) : viewMode === 'cards' ? (
-        <DataCards games={games} onSelect={setSelectedGame} />
+        <DataCards games={games} onSelect={handleSelectGame} />
       ) : (
-        <DataTable games={games} onSelect={setSelectedGame} />
+        <DataTable games={games} onSelect={handleSelectGame} />
       )}
 
-      {/* Modal */}
       {selectedGame && (
         <GameModal
           game={selectedGame}
