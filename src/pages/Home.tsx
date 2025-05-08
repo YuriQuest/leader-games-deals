@@ -20,15 +20,17 @@ export const Home = () => {
   const { games, loading } = useGames(filters);
 
   return (
-    <div>
-      <h1 className="text-xl font-bold mb-4">Ofertas de Jogos</h1>
+    <div className='flex flex-col px-6 py-8 mx-auto'>
+      <div className='flex justify-between'>
+        <h1 className="flex justify-center mb-4 text-3xl font-bold">Leader Games Deal</h1>
 
-      <button
-        onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Visualizar como: {viewMode === 'cards' ? 'Tabela' : 'Cards'}
-      </button>
+        <button
+          onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}
+          className="px-4 py-2 mb-4 text-white bg-blue-500 rounded hover:bg-blue-600"
+        >
+          Visualizar como: {viewMode === 'cards' ? 'Tabela' : 'Cards'}
+        </button>
+      </div>
 
       <FilterControls filters={filters} onChange={setFilters} />
 

@@ -15,16 +15,16 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
   if (!stores || stores.length === 0) return <p className="text-center text-red-500">Erro ao carregar as lojas.</p>;
 
   return (
-    <div className="overflow-x-auto p-4">
-      <table className="min-w-full bg-white border border-gray-200 shadow-sm">
-        <thead className="bg-gray-100">
+    <div className="p-4 overflow-x-auto">
+      <table className="min-w-full">
+        <thead className="bg-slate-400">
           <tr>
-            <th className="px-4 py-2 border">Jogo</th>
-            <th className="px-4 py-2 border">Preço</th>
-            <th className="px-4 py-2 border">Valor original</th>
-            <th className="px-4 py-2 border">Desconto</th>
-            <th className="px-4 py-2 border">Loja</th>
-            <th className="px-4 py-2 border">Nota</th>
+            <th className="px-4 py-2">Jogo</th>
+            <th className="px-4 py-2">Preço</th>
+            <th className="px-4 py-2">Valor original</th>
+            <th className="px-4 py-2">Desconto</th>
+            <th className="px-4 py-2">Loja</th>
+            <th className="px-4 py-2">Nota</th>
           </tr>
         </thead>
         <tbody>
@@ -34,19 +34,19 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
             return (
               <tr
                 key={game.dealID}
-                className="hover:bg-gray-50 cursor-pointer"
+                className="shadow cursor-pointer hover:bg-gray-50 bg-slate-300"
                 onClick={() => onSelect(game)}
               >
-                <td className="px-4 py-2 border flex items-center gap-2">
-                  <img src={game.thumb} alt={game.title} className="w-12 h-auto rounded" />
+                <td className="flex items-center gap-2 px-4 py-2">
+                  <img src={game.thumb} alt={game.title} className="object-cover w-24 h-10 rounded" />
                   <span className="text-sm font-medium">{game.title}</span>
                 </td>
-                <td className="px-4 py-2 border text-green-600 font-semibold">R$ {Number(game.salePrice).toFixed(2)}</td>
-                <td className="px-4 py-2 border text-gray-500">R$ {Number(game.normalPrice).toFixed(2)}</td>
-                <td className="px-4 py-2 border text-red-500">{Number(game.savings).toFixed(0)}%</td>
-                <td className="px-4 py-2 border">
+                <td className="px-4 py-2 font-semibold text-green-600">R$ {Number(game.salePrice).toFixed(2)}</td>
+                <td className="px-4 py-2 text-gray-500 ">R$ {Number(game.normalPrice).toFixed(2)}</td>
+                <td className="px-4 py-2 text-red-500 ">{Number(game.savings).toFixed(0)}%</td>
+                <td className="px-4 py-2 ">
                   {store ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 ">
                       <img
                         src={`https://www.cheapshark.com${store.images.logo}`}
                         alt={`Ícone da loja ${store.storeName}`}
@@ -58,7 +58,7 @@ export const DataTable: React.FC<DataTableProps> = ({ games, onSelect }) => {
                     <span className="text-sm text-gray-400">Loja não encontrada</span>
                   )}
                 </td>
-                <td className="px-4 py-2 border text-center">{game.dealRating}</td>
+                <td className="px-4 py-2 text-center">{game.dealRating}</td>
               </tr>
             );
           })}
