@@ -7,4 +7,5 @@ export default defineConfig({
   css: {
     postcss: './postcss.config.cjs', // Certifique-se de que o PostCSS está sendo lido corretamente
   },
+  base: '/leader-games-deals/', // Substitua 'leader-games-deals' pelo nome do seu repositório
 });
